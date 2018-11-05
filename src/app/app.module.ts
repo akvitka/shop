@@ -8,22 +8,20 @@ import {ProductsService} from './products/services/products.service';
 import {CartService} from './cart/services/cart.service';
 import {ProductsListComponent} from './products/components/products-list/products-list.component';
 import {CartComponent} from './cart/components/cart/cart.component';
+import {ProductsModule} from './products/products.module';
+import {CartModule} from './cart/cart.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ProductComponent,
-    ProductsListComponent,
-    CartComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ProductsModule,
+    CartModule
   ],
-  providers: [
-    ProductsService,
-    CartService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

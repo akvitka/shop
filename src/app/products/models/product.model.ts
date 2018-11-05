@@ -4,8 +4,8 @@ export interface Product {
   price: number;
   category: ProductCategory;
   isAvailable: boolean;
-  reviews: Array<string>;
-  ratings: Array<ProductRating>;
+  reviews?: Array<string>;
+  ratings?: Array<ProductRating>;
 }
 
 export class ProductModel implements Product {
@@ -14,8 +14,8 @@ export class ProductModel implements Product {
   isAvailable: boolean;
   name: string;
   price: number;
-  ratings: Array<ProductRating>;
-  reviews: Array<string>;
+  ratings?: Array<ProductRating>;
+  reviews?: Array<string>;
 }
 
 export enum ProductCategory {

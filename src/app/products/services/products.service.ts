@@ -20,7 +20,7 @@ export class ProductsService {
     product2.description = 'Description of product two';
     product2.price = 321;
     product2.category = ProductCategory.ELECTRONICS;
-    product2.isAvailable = true;
+    product2.isAvailable = false;
     product2.reviews = ['First review on product two', 'Second review on product two'];
     product2.ratings = [3, 5, 4];
 

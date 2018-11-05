@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CartService} from '../../services/cart.service';
+import {CartItem} from '../../models/cart-item.model';
 import {Product} from '../../../products/models/product.model';
 
 @Component({
@@ -14,11 +15,27 @@ export class CartComponent implements OnInit {
   ngOnInit() {
   }
 
-  getProducts(): Array<Product> {
-    return this.cartService.getProducts();
+  getProductItems(): Array<CartItem> {
+    return this.cartService.getProductItems();
   }
 
   getTotal(): number {
-    return this.cartService.getProducts().map(p => p.price).reduce((p1, p2) => p1 + p2, 0);
+    return this.cartService.getTotal();
+  }
+
+  getCount() {
+    return this.cartService.getCount();
+  }
+
+  onRemove(product: Product) {
+    this.cartService.removeItem(product);
+  }
+
+  onIncrement(product: Product) {
+    this.cartService.incrementQuantity(product);
+  }
+
+  onDecrement(product: Product) {
+    this.cartService.decrementQuantity(product);
   }
 }

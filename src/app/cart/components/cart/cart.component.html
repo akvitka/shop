@@ -1,12 +1,15 @@
 <div class="cart">
   Cart:
-  <div *ngIf="getProducts().length > 0; else cartEmpty">
+  <div *ngIf="getCount() > 0; else cartEmpty">
     <ul>
-      <li *ngFor="let product of getProducts()">
-        {{product.name}} (price: {{product.price}})
+      <li *ngFor="let item of getProductItems()">
+        <app-cart-item appHighlight
+                       [product]="item.product" [quantity]="item.quantity"
+                       (remove)="onRemove($event)" (increment)="onIncrement($event)" (decrement)="onDecrement($event)">
+        </app-cart-item>
       </li>
     </ul>
-    (total: {{getTotal()}})
+    (items count: {{getCount()}}, total price: {{getTotal()}})
   </div>
   <ng-template #cartEmpty>
     empty
