@@ -1,0 +1,11 @@
+#Task 1:
+- Created "ProductComponent".
+- Added "Buy" button.
+- Added "ProductModel" class and "Product" interface.
+- Created "ProductsService" returns hardcoded array of test products.
+- Created "ProductListComponent" shows list of products.
+- Created "CartService" supports list of added items.
+- Button "Buy" updated to add products to the cart with "CartService".
+- Created "CartComponent" shows list of added items or empty message.
+- Added additional functionality: average ratings.
+- Added additional functionality: cart total.

@@ -1,0 +1,24 @@
+<div>
+  <ul>
+    <li>Title: {{product.name}}</li>
+    <li>Description: {{product.description}}</li>
+    <li>Price: {{product.price}}</li>
+    <li>Category: {{product.category}}</li>
+    <li>Available: {{product.isAvailable ? 'yes' : 'no'}}</li>
+    <li>Ratings: {{product.ratings.length == 0 ? '-' : getAverageRating()}}
+      <ul>
+        <li *ngFor="let rating of product.ratings">
+          {{getStarsRating(rating)}}
+        </li>
+      </ul>
+    </li>
+    <li>Reviews: {{product.reviews.length == 0 ? '-' : ''}}
+      <ul>
+        <li *ngFor="let review of product.reviews">
+          {{review}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <button (click)="onBuy()">Buy</button>
+</div>
