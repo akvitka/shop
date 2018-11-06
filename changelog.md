@@ -24,3 +24,4 @@
 - OnPush strategy applied to the "ProductsListComponent" and "CartItemComponent".
 - Custom directive created to highlight cart items on mose over.
 - Additional functionality: buttons to remove cart items, increase/decrease quantity.
+- Updated "CartService" and "CartComponent" to use OnPush strategy with help of subscription on data changes event.

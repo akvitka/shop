@@ -1,10 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Product} from '../../products/models/product.model';
 import {CartItem} from '../models/cart-item.model';
+import {Subject} from 'rxjs';
 
 @Injectable()
 export class CartService {
   private productItems: Array<CartItem> = [];
+
+  private productsUpdated = new Subject<void>();
+
+  public productsUpdated$ = this.productsUpdated.asObservable();
 
   constructor() {
   }
@@ -17,6 +22,7 @@ export class CartService {
       this.productItems.push(new CartItem(product, 1));
     }
     console.log(`Added item ${this.getCount()}: product "${product.name}"`);
+    this.productsUpdated.next();
   }
 
   getProductItems(): Array<CartItem> {
@@ -35,6 +41,7 @@ export class CartService {
     const found = this.findItem(product.name);
     if (found) {
       this.productItems = this.productItems.filter((i) => i.product.name !== product.name);
+      this.productsUpdated.next();
     }
   }
 
@@ -42,6 +49,7 @@ export class CartService {
     const found = this.findItem(product.name);
     if (found) {
       found.quantity++;
+      this.productsUpdated.next();
     }
   }
 
@@ -53,6 +61,7 @@ export class CartService {
       } else {
         this.removeItem(product);
       }
+      this.productsUpdated.next();
     }
   }
 

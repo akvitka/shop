@@ -1,18 +1,31 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {CartService} from '../../services/cart.service';
 import {CartItem} from '../../models/cart-item.model';
 import {Product} from '../../../products/models/product.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
 
-  constructor(private cartService: CartService) { }
+  private productsUpdateSubscription: Subscription;
+
+  constructor(private cartService: CartService,
+              private cd: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
+    this.productsUpdateSubscription = this.cartService.productsUpdated$.subscribe(() => {
+      this.cd.detectChanges();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.productsUpdateSubscription.unsubscribe();
   }
 
   getProductItems(): Array<CartItem> {
