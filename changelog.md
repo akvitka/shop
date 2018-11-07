@@ -25,3 +25,5 @@
 - Custom directive created to highlight cart items on mose over.
 - Additional functionality: buttons to remove cart items, increase/decrease quantity.
 - Updated "CartService" and "CartComponent" to use OnPush strategy with help of subscription on data changes event.
+- Changed "ProductModel" to use constructor with member declarations
+- Extracted calculation of average rating to the "ProductsService"

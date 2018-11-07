@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product, ProductRating} from '../../models/product.model';
+import {ProductsService} from '../../services/products.service';
 
 @Component({
   selector: 'app-product',
@@ -15,7 +16,7 @@ export class ProductComponent implements OnInit {
   @Output()
   buy: EventEmitter<Product> = new EventEmitter<Product>();
 
-  constructor() {
+  constructor(private productsService: ProductsService) {
   }
 
   ngOnInit() {
@@ -26,8 +27,7 @@ export class ProductComponent implements OnInit {
   }
 
   getAverageRating(): number {
-    const sum = this.product.ratings.map(r => <number>r).reduce((r1, r2) => r1 + r2);
-    return sum / this.product.ratings.length;
+    return this.productsService.getAverageRating(this.product);
   }
 
   onBuy() {

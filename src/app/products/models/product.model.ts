@@ -9,17 +9,18 @@ export interface Product {
 }
 
 export class ProductModel implements Product {
-  category: ProductCategory;
-  description: string;
-  isAvailable: boolean;
-  name: string;
-  price: number;
-  ratings?: Array<ProductRating>;
-  reviews?: Array<string>;
+  constructor(public name: string,
+              public description: string,
+              public price: number,
+              public category: ProductCategory,
+              public isAvailable: boolean,
+              public reviews: Array<string>,
+              public ratings: Array<ProductRating>) {
+  }
 }
 
 export enum ProductCategory {
-  ELECTRONICS= 'Electronics',
+  ELECTRONICS = 'Electronics',
   BOOKS = 'Books',
   FOOD = 'Food',
   DRINKS = 'Drinks'
