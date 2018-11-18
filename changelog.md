@@ -25,5 +25,15 @@
 - Custom directive created to highlight cart items on mose over.
 - Additional functionality: buttons to remove cart items, increase/decrease quantity.
 - Updated "CartService" and "CartComponent" to use OnPush strategy with help of subscription on data changes event.
-- Changed "ProductModel" to use constructor with member declarations
-- Extracted calculation of average rating to the "ProductsService"
+- Changed "ProductModel" to use constructor with member declarations.
+- Extracted calculation of average rating to the "ProductsService".
+
+#Task3
+- Added total and quantity values to the "CartService" and automatic recalculation when cart changes.
+- Created "LocalStorageService".
+- Created "ConfigOptionsService".
+- Created "ConstantsService".
+- Created "GeneratorService".
+- Added "CoreModule" with all new services registered.
+- Created "ContactUsComponent" with all new services injected.
+- Created "EnlargeFontDirective" to change font size of host element bigger when clicked.

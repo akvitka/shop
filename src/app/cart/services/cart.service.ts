@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Product} from '../../products/models/product.model';
 import {CartItem} from '../models/cart-item.model';
 import {Subject} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {isNullOrUndefined} from 'util';
 
 @Injectable()
 export class CartService {
@@ -9,17 +11,26 @@ export class CartService {
 
   private productsUpdated = new Subject<void>();
 
-  public productsUpdated$ = this.productsUpdated.asObservable();
+  private total: number;
+  private count: number;
+
+  public productsUpdated$ = this.productsUpdated.asObservable().pipe(tap(() => {
+    this.updateCount();
+    this.updateTotal();
+  }));
 
   constructor() {
+    this.total = 0;
+    this.count = 0;
   }
 
-  addProduct(product: Product) {
+  addProduct(product: Product, quantity?: number) {
     const found = this.findItem(product.name);
+    const addedQuantity = isNullOrUndefined(quantity) ? 1 : quantity;
     if (found) {
-      found.quantity++;
+      found.quantity += addedQuantity;
     } else {
-      this.productItems.push(new CartItem(product, 1));
+      this.productItems.push(new CartItem(product, addedQuantity));
     }
     console.log(`Added item ${this.getCount()}: product "${product.name}"`);
     this.productsUpdated.next();
@@ -30,11 +41,11 @@ export class CartService {
   }
 
   getTotal(): number {
-    return this.productItems.map(i => i.product.price * i.quantity).reduce((p1, p2) => p1 + p2, 0);
+    return this.total;
   }
 
   getCount() {
-    return this.productItems.map(i => i.quantity).reduce((p1, p2) => p1 + p2, 0);
+    return this.count;
   }
 
   removeItem(product: Product) {
@@ -65,7 +76,20 @@ export class CartService {
     }
   }
 
+  removeAll() {
+    this.productItems = [];
+    this.productsUpdated.next();
+  }
+
   private findItem(name: string): CartItem {
     return this.productItems.find((i) => i.product.name === name);
+  }
+
+  private updateCount() {
+    this.count = this.productItems.map(i => i.quantity).reduce((p1, p2) => p1 + p2, 0);
+  }
+
+  private updateTotal() {
+    this.total = this.productItems.map(i => i.product.price * i.quantity).reduce((p1, p2) => p1 + p2, 0);
   }
 }
